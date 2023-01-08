@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id        String   @id @default(uuid())
+  name      String
+  username  String   @unique
+  password  String
+  role      Roles    @relation(fields: [role_user], references: [id])
+  role_user String
+  createdAt DateTime @default(now())
+
+  // renomear para role_id
+}
+
+model Product {
+  id          String @id @default(uuid())
+  name        String
+  description String
+  createdAt DateTime @default(now())
+}
+
+model Permissions {
+  id          String            @id @default(uuid())
+  name        String
+  description String
+  createdAt   DateTime          @default(now())
+  roles       PermissionRoles[]
+}
+
+model Roles {
+  id          String            @id @default(uuid())
+  name        String
+  description String
+  createdAt   DateTime          @default(now())
+  permissions PermissionRoles[]
+  Users       Users[]
+}
+
+model PermissionRoles {
+  permission   Permissions @relation(fields: [permissionId], references: [id])
+  permissionId String
+  role         Roles       @relation(fields: [roleId], references: [id])
+  roleId       String
+
+  @@id([permissionId, roleId])
+}
