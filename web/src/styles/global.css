@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+
+@layer components {
+    .background-login {
+        @apply flex w-screen h-screen justify-center items-center bg-slate-400
+    }
+
+    .container-form {
+        @apply flex flex-col w-[320px] content-center items-center bg-white rounded-lg
+    }
+
+    .container-input {
+        @apply flex flex-col w-[300px] mt-5 my-[10px]
+    }
+
+    .container-submit {
+        @apply flex flex-col min-w-[320px] rounded-b-3xl
+    }
+
+    .inputs {
+        @apply p-2 border mt-2 border-gray-300 shadow outline-0 rounded
+    }
+
+    .submit-button {
+        @apply bg-custom-buttom p-4 text-white
+    }
+}
